@@ -8,7 +8,8 @@ class Player(object):
         self.strategy = strategy
         self.hunts = 0
         self.slacks = 0
-        self.name = name if name else getattr(strategy, '__name__', str(strategy))
+        self.name = name if name \
+            else getattr(strategy, '__name__', str(strategy))
 
     @property
     def reputation(self):
@@ -102,7 +103,7 @@ class Game(object):
         self.players = []
         for strategy in self.strategies:
             player = Player(strategy)
-            player.food = 300 * (len(players) - 1)
+            player.food = 300 * (len(self.strategies) - 1)
             self.players.append(player)
 
         print "PLAYERS: %r" % [p for p in self.players]
@@ -132,4 +133,3 @@ if __name__ == '__main__':
     players = [always, never, alternate]
     game = Game(players)
     "Winner(s): %r" % game.play_game()
-
